@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MERCHANT DECLARATION - PhonePe</title>
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 18mm 18mm 18mm 18mm;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Aptos', 'Calibri', 'Segoe UI', Arial, sans-serif;
+    font-size: 9.5pt;
+    line-height: 1.38;
+    color: #111111;
+    background: #e9e6ef;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Toolbar (Hidden when printing) */
+  .toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #5F259F;
+    color: #ffffff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+  .toolbar-title {
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.2px;
+  }
+  .toolbar-actions {
+    display: flex;
+    gap: 10px;
+  }
+  .btn {
+    border: none;
+    border-radius: 5px;
+    padding: 7px 14px;
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  .btn:hover {
+    opacity: 0.9;
+  }
+  .btn-primary {
+    background: #ffffff;
+    color: #5F259F;
+  }
+  .btn-secondary {
+    background: rgba(255,255,255,0.18);
+    color: #ffffff;
+    border: 1px solid rgba(255,255,255,0.4);
+  }
+
+  /* Page Sheet */
+  .page-container {
+    max-width: 210mm;
+    margin: 20px auto 40px auto;
+    background: #ffffff;
+    padding: 18mm 20mm;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.12);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Diagonal Watermark matching Word Header */
+  .watermark {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    font-size: 56pt;
+    font-weight: 700;
+    color: rgba(192, 192, 192, 0.22);
+    pointer-events: none;
+    user-select: none;
+    white-space: nowrap;
+    z-index: 0;
+  }
+
+  .content-layer {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Header Bar with Official Extracted PhonePe SVG Logo */
+  .doc-header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    padding-bottom: 4px;
+  }
+  .doc-header-text {
+    color: #5F259F;
+    font-weight: 700;
+    font-size: 8.5pt;
+    letter-spacing: 0.3px;
+  }
+
+  /* Title & Subtitle */
+  .main-title {
+    font-size: 22pt;
+    font-weight: 700;
+    color: #5F259F;
+    margin: 0 0 6px 0;
+    letter-spacing: 0.3px;
+  }
+  .rbi-note {
+    font-style: italic;
+    color: #666666;
+    font-size: 8.8pt;
+    margin: 0 0 12px 0;
+  }
+
+  /* Address Box */
+  .address-box {
+    background-color: #F2EEF8;
+    border: 1px solid #d5c8e8;
+    padding: 9px 12px;
+    margin-bottom: 14px;
+    color: #5F259F;
+    font-weight: 700;
+    font-size: 9.2pt;
+    line-height: 1.4;
+  }
+
+  /* Section Headings */
+  h2.section-heading {
+    font-size: 11.5pt;
+    font-weight: 700;
+    color: #5F259F;
+    margin: 14px 0 6px 0;
+  }
+
+  p {
+    margin: 0 0 8px 0;
+    text-align: justify;
+  }
+
+  /* Editable Inline Inputs */
+  input[type="text"].line-input {
+    border: none;
+    border-bottom: 1px solid #222222;
+    background: rgba(242, 238, 248, 0.35);
+    font-family: inherit;
+    font-size: 9.5pt;
+    font-weight: 600;
+    color: #000000;
+    padding: 1px 4px;
+    outline: none;
+  }
+  input[type="text"].line-input:focus {
+    background: #F2EEF8;
+    border-bottom: 1.5px solid #5F259F;
+  }
+
+  input[type="text"].table-input {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #333333;
+    background: rgba(242, 238, 248, 0.35);
+    font-family: inherit;
+    font-size: 9.2pt;
+    font-weight: 600;
+    color: #000000;
+    padding: 2px 4px;
+    outline: none;
+  }
+  input[type="text"].table-input:focus {
+    background: #F2EEF8;
+    border-bottom: 1.5px solid #5F259F;
+  }
+
+  /* Checkboxes */
+  label.cb-label {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 6px;
+    cursor: pointer;
+    margin: 2px 0;
+  }
+  input[type="checkbox"] {
+    accent-color: #5F259F;
+    width: 13px;
+    height: 13px;
+    margin-top: 2px;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  /* Form Tables */
+  table.form-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 12px;
+    font-size: 9pt;
+  }
+  table.form-table td {
+    border: 1px solid #cccccc;
+    padding: 5px 8px;
+    vertical-align: top;
+  }
+  table.form-table td.sub-header {
+    background-color: #F2EEF8;
+    color: #542087;
+    font-weight: 700;
+  }
+  table.form-table td.half {
+    width: 50%;
+  }
+
+  .pep-note {
+    color: #3d2458;
+    font-style: italic;
+    margin: 6px 0 10px 0;
+  }
+
+  /* Signature & Photo Table */
+  table.sig-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px;
+    margin-bottom: 14px;
+  }
+  table.sig-table td {
+    border: 1px solid #cccccc;
+    padding: 10px 12px;
+    vertical-align: top;
+  }
+  td.sig-left {
+    width: 62%;
+  }
+  td.sig-right {
+    width: 38%;
+    background-color: #F2EEF8;
+    text-align: center;
+    color: #5F259F;
+    font-weight: 700;
+    font-size: 8.5pt;
+  }
+  .photo-dropzone {
+    border: 1.5px dashed #5F259F;
+    background: #ffffff;
+    min-height: 115px;
+    margin: 8px auto;
+    width: 125px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 6px;
+    position: relative;
+  }
+  .photo-dropzone img {
+    max-width: 100%;
+    max-height: 110px;
+    object-fit: contain;
+    display: none;
+  }
+
+  /* Important Notes Table */
+  table.notes-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8.2pt;
+    margin-top: 4px;
+  }
+  table.notes-table td {
+    border: 1px solid #dddddd;
+    padding: 5px 8px;
+    line-height: 1.35;
+  }
+  table.notes-table tr:nth-child(odd) td {
+    background-color: #F8F8FA;
+  }
+
+  .doc-footer {
+    text-align: center;
+    color: #666666;
+    font-size: 8pt;
+    margin-top: 14px;
+    padding-top: 6px;
+    border-top: 1px solid #eeeeee;
+  }
+
+  @media screen and (max-width: 768px) {
+    .page-container {
+      margin: 10px;
+      padding: 16px;
+    }
+    table.form-table td.half,
+    td.sig-left,
+    td.sig-right {
+      display: block;
+      width: 100%;
+    }
+    input[type="text"].line-input {
+      max-width: 100%;
+    }
+  }
+
+  @media print {
+    body {
+      background: #ffffff;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    .toolbar {
+      display: none !important;
+    }
+    .page-container {
+      margin: 0;
+      padding: 0;
+      box-shadow: none;
+      max-width: 100%;
+    }
+    input[type="text"].line-input,
+    input[type="text"].table-input {
+      background: transparent !important;
+    }
+    .photo-dropzone {
+      border: 1px solid #5F259F;
+    }
+    table.form-table tr,
+    table.sig-table tr,
+    table.notes-table tr {
+      break-inside: avoid;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="toolbar-title">PhonePe Merchant Declaration — Fillable Form</div>
+  <div class="toolbar-actions">
+    <button type="button" class="btn btn-secondary" onclick="clearForm()">Clear All</button>
+    <button type="button" class="btn btn-primary" onclick="window.print()">Print / Save as PDF</button>
+  </div>
+</div>
+
+<div class="watermark">Merchant Declaration</div>
+
+<div class="page-container">
+  <div class="content-layer">
+
+    <!-- Header with exact embedded SVG logo from DOCX -->
+    <div class="doc-header">
+      <svg viewBox="0 0 132 48" width="84" height="30" xmlns="http://www.w3.org/2000/svg" id="Layer_2" xml:space="preserve" overflow="hidden"><circle cx="17.9" cy="24" r="17.9" fill="#5F259F" transform="matrix(0.229812 -0.973235 0.973235 0.229812 -9.59535 35.877)"/><path d="M90.5 34.2 90.5 27.7C90.5 26.1 89.9 25.3 88.4 25.3 87.8 25.3 87.1 25.4 86.7 25.5L86.7 35C86.7 35.3 86.4 35.6 86.1 35.6L83.8 35.6C83.5 35.6 83.2 35.3 83.2 35L83.2 23.9C83.2 23.5 83.5 23.2 83.8 23.1 85.3 22.6 86.8 22.3 88.4 22.3 92 22.3 94 24.2 94 27.7L94 35.1C94 35.4 93.7 35.7 93.4 35.7L92 35.7C91.1 35.7 90.5 35 90.5 34.2ZM99.5 30.3 99.4 31.2C99.4 32.4 100.2 33.1 101.5 33.1 102.5 33.1 103.4 32.8 104.4 32.3 104.5 32.3 104.6 32.2 104.7 32.2 104.9 32.2 105 32.3 105.1 32.4 105.2 32.5 105.4 32.8 105.4 32.8 105.6 33.1 105.8 33.5 105.8 33.8 105.8 34.3 105.5 34.8 105.1 35 104 35.6 102.7 35.9 101.3 35.9 99.7 35.9 98.4 35.5 97.4 34.7 96.4 33.8 95.8 32.6 95.8 31.1L95.8 27.2C95.8 24.1 97.8 22.2 101.2 22.2 104.5 22.2 106.4 24 106.4 27.2L106.4 29.6C106.4 29.9 106.1 30.2 105.8 30.2L99.5 30.2ZM99.4 28.1 103.2 28.1 103.2 27.1C103.2 25.9 102.5 25.1 101.3 25.1 100.1 25.1 99.4 25.8 99.4 27.1L99.4 28.1ZM124.9 30.3 124.8 31.2C124.8 32.4 125.6 33.1 126.9 33.1 127.9 33.1 128.8 32.8 129.8 32.3 129.9 32.3 130 32.2 130.1 32.2 130.3 32.2 130.4 32.3 130.5 32.4 130.6 32.5 130.8 32.8 130.8 32.8 131 33.1 131.2 33.5 131.2 33.8 131.2 34.3 130.9 34.8 130.5 35 129.4 35.6 128.1 35.9 126.7 35.9 125.1 35.9 123.8 35.5 122.8 34.7 121.8 33.8 121.2 32.6 121.2 31.1L121.2 27.2C121.2 24.1 123.2 22.2 126.6 22.2 129.9 22.2 131.8 24 131.8 27.2L131.8 29.6C131.8 29.9 131.5 30.2 131.2 30.2L124.9 30.2ZM124.8 28.1 128.6 28.1 128.6 27.1C128.6 25.9 127.9 25.1 126.7 25.1 125.5 25.1 124.8 25.8 124.8 27.1L124.8 28.1ZM66 35.7 67.4 35.7C67.7 35.7 68 35.4 68 35.1L68 27.7C68 24.3 66.2 22.3 63.2 22.3 62.3 22.3 61.3 22.5 60.7 22.7L60.7 19C60.7 18.2 60 17.5 59.2 17.5L57.8 17.5C57.5 17.5 57.2 17.8 57.2 18.1L57.2 35.1C57.2 35.4 57.5 35.7 57.8 35.7L60.1 35.7C60.4 35.7 60.7 35.4 60.7 35.1L60.7 25.7C61.2 25.5 61.9 25.4 62.4 25.4 63.9 25.4 64.5 26.1 64.5 27.8L64.5 34.3C64.6 35 65.2 35.7 66 35.7ZM81.1 27.3 81.1 31C81.1 34.1 79 36 75.5 36 72.1 36 69.9 34.1 69.9 31L69.9 27.3C69.9 24.2 72 22.3 75.5 22.3 79 22.3 81.1 24.2 81.1 27.3ZM77.6 27.3C77.6 26.1 76.9 25.3 75.6 25.3 74.3 25.3 73.6 26 73.6 27.3L73.6 31C73.6 32.2 74.3 32.9 75.6 32.9 76.9 32.9 77.6 32.2 77.6 31L77.6 27.3ZM55.3 25.6C55.3 28.8 52.9 31 49.7 31 48.9 31 48.2 30.9 47.5 30.6L47.5 35.1C47.5 35.4 47.2 35.7 46.9 35.7L44.6 35.7C44.3 35.7 44 35.4 44 35.1L44 19.2C44 18.8 44.3 18.5 44.6 18.4 46.1 17.9 47.6 17.6 49.2 17.6 52.8 17.6 55.3 19.8 55.3 23.2L55.3 25.6ZM51.7 23C51.7 21.4 50.6 20.6 49.1 20.6 48.2 20.6 47.6 20.9 47.6 20.9L47.6 27.5C48.2 27.8 48.5 27.9 49.2 27.9 50.7 27.9 51.8 27 51.8 25.5L51.8 23ZM119.9 25.6C119.9 28.8 117.5 31 114.3 31 113.5 31 112.8 30.9 112.1 30.6L112.1 35.1C112.1 35.4 111.8 35.7 111.5 35.7L109.2 35.7C108.9 35.7 108.6 35.4 108.6 35.1L108.6 19.2C108.6 18.8 108.9 18.5 109.2 18.4 110.7 17.9 112.2 17.6 113.8 17.6 117.4 17.6 119.9 19.8 119.9 23.2L119.9 25.6ZM116.3 23C116.3 21.4 115.2 20.6 113.7 20.6 112.8 20.6 112.2 20.9 112.2 20.9L112.2 27.5C112.8 27.8 113.1 27.9 113.8 27.9 115.3 27.9 116.4 27 116.4 25.5L116.4 23Z" fill="#5F259F"/><path d="M26 19.3C26 18.6 25.4 18 24.7 18L22.3 18 16.8 11.7C16.3 11.1 15.5 10.9 14.7 11.1L12.8 11.7C12.5 11.8 12.4 12.2 12.6 12.4L18.6 18.1 9.5 18.1C9.2 18.1 9 18.3 9 18.6L9 19.6C9 20.3 9.6 20.9 10.3 20.9L11.7 20.9 11.7 25.7C11.7 29.3 13.6 31.4 16.8 31.4 17.8 31.4 18.6 31.3 19.6 30.9L19.6 34.1C19.6 35 20.3 35.7 21.2 35.7L22.6 35.7C22.9 35.7 23.2 35.4 23.2 35.1L23.2 20.8 25.5 20.8C25.8 20.8 26 20.6 26 20.3L26 19.3ZM19.6 27.9C19 28.2 18.2 28.3 17.6 28.3 16 28.3 15.2 27.5 15.2 25.7L15.2 20.9 19.6 20.9 19.6 27.9Z" fill="#FFFFFF"/></svg>
+      <span class="doc-header-text">PHONEPE | MERCHANT DECLARATION</span>
+    </div>
+
+    <h1 class="main-title">MERCHANT DECLARATION</h1>
+    <p class="rbi-note">[For due diligence under RBI’s Master Direction on Regulation of Payment Aggregators (RBI/DPSS/2025-26/141) dated September 15, 2026, and subsequent amendments thereto. Please ensure that all provided information is updated and <strong>accurate</strong>.]</p>
+
+    <div class="address-box">
+      To<br>
+      PhonePe Limited (formerly known as “PhonePe Private Limited”) ("PhonePe")<br>
+      Office-2, Floor 5, Wing A, Block A, Salarpuria Softzone,<br>
+      Bellandur Village, Varthur Hobli, Outer Ring Road, Bangalore South,<br>
+      Bangalore, Karnataka, India – 560103
+    </div>
+
+    <h2 class="section-heading">Subject:  PhonePe Merchant Declaration</h2>
+
+    <p>
+      I, <input type="text" class="line-input" style="width: 240px;" aria-label="NAME"> <strong>[NAME]</strong>, hereinafter referred to as “Merchant”, being the <input type="text" class="line-input" style="width: 230px;" aria-label="AUTHORISED DESIGNATION"> <strong>[AUTHORISED DESIGNATION]</strong> of <input type="text" class="line-input" style="width: 280px;" aria-label="BUSINESS NAME"> <strong>[BUSINESS NAME]</strong> ("Firm name / Company name"), having its registered office at <input type="text" class="line-input" style="width: 310px;" aria-label="REGISTERED ADDRESS"> <strong>[ADDRESS]</strong> (the "Entity") and having its principal place of operation/office at<br>
+      <label class="cb-label"><strong><input type="checkbox"> the same address</strong></label><br>
+      <strong>OR</strong>  <input type="text" class="line-input" style="width: 310px;" aria-label="PRINCIPAL PLACE ADDRESS"> <strong>[ADDRESS]</strong>, do hereby declare that I have been authorised to act as the designated authorised signatory for the Entity. The details below, including my specimen signature, are true, accurate, valid, legally binding and authenticated for the Entity and may be used for the purpose of obtaining payment facilitation services and for business associations or partnerships with PhonePe.
+    </p>
+
+    <p>
+      <strong>Consent and KYC Authorization.</strong> I hereby allow PhonePe to collect, store and use my KYC, including CKYC, and/or other details as required by PhonePe, for verifying my identity as the authorised signatory of the Entity, thereby enabling the Entity to be onboarded as a Merchant with PhonePe and to avail PhonePe services, in accordance with PhonePe’s Terms and Conditions and Privacy Policy.
+    </p>
+
+    <!-- SECTION A -->
+    <h2 class="section-heading">A.  Authorised Signatory Details</h2>
+    <table class="form-table">
+      <tr>
+        <td class="half">1.  Mobile number (registered with PhonePe for onboarding)</td>
+        <td class="half"><input type="text" class="table-input" aria-label="Mobile number"></td>
+      </tr>
+      <tr>
+        <td class="half">2.  Email ID (registered with PhonePe for onboarding)</td>
+        <td class="half"><input type="text" class="table-input" aria-label="Email ID"></td>
+      </tr>
+      <tr>
+        <td colspan="2" class="sub-header">3.  Individual KYC documents</td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <label class="cb-label"><input type="checkbox"> PAN Card (Mandatory)</label>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <div>Any one of the following is mandatory (please tick whichever submitted):</div>
+          <div><label class="cb-label"><input type="checkbox"> Aadhaar (masked except the last 4 digits)</label></div>
+          <div><label class="cb-label"><input type="checkbox"> Driving License</label></div>
+          <div><label class="cb-label"><input type="checkbox"> Voter ID</label></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="half">4.  Person with Disability (PwD) — Type of Disability</td>
+        <td class="half"><input type="text" class="table-input" aria-label="Type of Disability"></td>
+      </tr>
+      <tr>
+        <td class="half">Percentage of Disability</td>
+        <td class="half"><input type="text" class="table-input" aria-label="Percentage of Disability"></td>
+      </tr>
+      <tr>
+        <td class="half">5.  Father's Name (of the Authorised Signatory)</td>
+        <td class="half"><input type="text" class="table-input" aria-label="Father's Name"></td>
+      </tr>
+    </table>
+
+    <!-- SECTION B -->
+    <h2 class="section-heading">B.  Merchant and Business Details</h2>
+    <table class="form-table">
+      <tr>
+        <td colspan="2" class="sub-header">Entity type</td>
+      </tr>
+      <tr>
+        <td class="half"><label class="cb-label"><input type="checkbox"> Individual / Sole Proprietorship</label></td>
+        <td class="half"><label class="cb-label"><input type="checkbox"> HUF</label></td>
+      </tr>
+      <tr>
+        <td class="half"><label class="cb-label"><input type="checkbox"> Company</label></td>
+        <td class="half"><label class="cb-label"><input type="checkbox"> Trust</label></td>
+      </tr>
+      <tr>
+        <td class="half"><label class="cb-label"><input type="checkbox"> Registered Partnership Firm</label></td>
+        <td class="half"><label class="cb-label"><input type="checkbox"> Society</label></td>
+      </tr>
+      <tr>
+        <td class="half"><label class="cb-label"><input type="checkbox"> Unregistered Partnership Firm</label></td>
+        <td class="half"><label class="cb-label"><input type="checkbox"> Others (Club, University, Institution, etc.)</label></td>
+      </tr>
+      <tr>
+        <td class="half"><label class="cb-label"><input type="checkbox"> Body of Individual</label></td>
+        <td class="half"><label class="cb-label"><input type="checkbox"> Association of Persons</label></td>
+      </tr>
+      <tr>
+        <td class="half"><label class="cb-label"><input type="checkbox"> Government Department / PSU / Local Government Body</label></td>
+        <td class="half"><label class="cb-label"><input type="checkbox"> Not Applicable</label></td>
+      </tr>
+      <tr>
+        <td colspan="2" class="sub-header">1.  TAN registration status / TAN number</td>
+      </tr>
+      <tr>
+        <td class="half">
+          <div><label class="cb-label"><input type="checkbox"> Merchant holds a TAN.</label></div>
+          <div style="margin-top: 4px;">TAN: <input type="text" class="line-input" style="width: 160px;" aria-label="TAN"></div>
+        </td>
+        <td class="half">
+          <label class="cb-label"><input type="checkbox"> Merchant does not hold TAN because it is not liable to deduct or collect tax at source.</label>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" class="sub-header">2.  GST registration status / GSTIN</td>
+      </tr>
+      <tr>
+        <td class="half">
+          <div><label class="cb-label"><input type="checkbox"> Registered</label></div>
+          <div style="margin-top: 4px;">GSTIN: <input type="text" class="line-input" style="width: 160px;" aria-label="GSTIN"></div>
+        </td>
+        <td class="half">
+          <label class="cb-label"><input type="checkbox"> Merchant does not have GST registration.</label>
+        </td>
+      </tr>
+      <tr>
+        <td class="half">3.  Business PAN number</td>
+        <td class="half"><input type="text" class="table-input" aria-label="Business PAN number"></td>
+      </tr>
+      <tr>
+        <td colspan="2" class="sub-header">4.  Entity category and nature of business</td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          Industry / Business Profession:  <input type="text" class="line-input" style="width: 65%;" aria-label="Industry / Business Profession">
+        </td>
+      </tr>
+      <tr>
+        <td class="half"><label class="cb-label"><input type="checkbox"> Government organization</label></td>
+        <td class="half"><label class="cb-label"><input type="checkbox"> NGO / Charitable institution</label></td>
+      </tr>
+      <tr>
+        <td class="half"><label class="cb-label"><input type="checkbox"> NA</label></td>
+        <td class="half"></td>
+      </tr>
+      <tr>
+        <td colspan="2" class="sub-header">5.  Politically Exposed Person (PEP) Declaration</td>
+      </tr>
+      <tr>
+        <td colspan="2">Is any personnel, director, officer, family member or close associate of the Merchant or its beneficial owners a PEP?</td>
+      </tr>
+      <tr>
+        <td class="half"><label class="cb-label"><input type="checkbox"> Yes</label></td>
+        <td class="half"><label class="cb-label"><input type="checkbox"> No</label></td>
+      </tr>
+      <tr>
+        <td colspan="2">PEP means an individual who is or has been entrusted with prominent public functions by a foreign country, including heads of state or government, senior politicians, senior government, judicial or military officers, senior executives of state-owned corporations and important political party officials.</td>
+      </tr>
+      <tr>
+        <td colspan="2" class="sub-header">6.  Business URL details (where applicable, primarily for online services)</td>
+      </tr>
+      <tr>
+        <td colspan="2">Website URL:  <input type="text" class="line-input" style="width: 78%;" aria-label="Website URL"></td>
+      </tr>
+      <tr>
+        <td colspan="2">Android app URL:  <input type="text" class="line-input" style="width: 74%;" aria-label="Android app URL"></td>
+      </tr>
+      <tr>
+        <td colspan="2">iOS app URL:  <input type="text" class="line-input" style="width: 78%;" aria-label="iOS app URL"></td>
+      </tr>
+      <tr>
+        <td colspan="2" class="sub-header">7.  Merchant annual turnover (Financial Year): <input type="text" class="line-input" style="width: 180px; background: #ffffff;" aria-label="Merchant annual turnover"></td>
+      </tr>
+      <tr>
+        <td class="half"><label class="cb-label"><input type="checkbox"> Up to ₹20 Lakhs</label></td>
+        <td class="half"></td>
+      </tr>
+      <tr>
+        <td class="half"><label class="cb-label"><input type="checkbox"> More than ₹20 Lakhs up to ₹40 Lakhs</label></td>
+        <td class="half"><label class="cb-label"><input type="checkbox"> More than ₹40 Lakhs up to ₹1 Crore</label></td>
+      </tr>
+      <tr>
+        <td class="half"><label class="cb-label"><input type="checkbox"> More than ₹1 Crore up to ₹50 Crores</label></td>
+        <td class="half"><label class="cb-label"><input type="checkbox"> More than ₹50 Crores</label></td>
+      </tr>
+      <tr>
+        <td colspan="2">The declared turnover may be supplemented by the business profile, category and transaction history for business segmentation, categorization and risk assessment.</td>
+      </tr>
+    </table>
+
+    <!-- SECTION C -->
+    <h2 class="section-heading">C.  Declaration and Authorization</h2>
+
+    <p>
+      I, having PAN number <input type="text" class="line-input" style="width: 170px;" aria-label="PAN number">, hereby declare that the above facts and information are true, complete and correct to the best of my knowledge. I understand and agree that if any of the above-mentioned facts or information is found to be incorrect, I shall be personally liable.
+    </p>
+
+    <p>
+      I, in the capacity of Authorised Signatory, shall provide all necessary documentation required for onboarding the Entity in accordance with applicable regulatory requirements. I also authorize PhonePe to fetch, retrieve, obtain, utilise and verify any information or records relating to the Entity from any source that PhonePe deems appropriate, including information or records available on government portals and/or the Central KYC Records Registry (CKYCR), for customer due diligence in accordance with applicable laws. As applicable, I also consent to and authorize PhonePe to upload or update the Entity’s information or records with CKYCR in accordance with applicable laws.
+    </p>
+
+    <p class="pep-note">
+      The Merchant shall promptly inform PhonePe in writing if the PEP representation becomes untrue during the term.
+    </p>
+
+    <p><strong>Yours faithfully,</strong></p>
+
+    <table class="sig-table">
+      <tr>
+        <td class="sig-left">
+          <div><strong>For and on behalf of the Merchant</strong></div>
+          <div style="height: 36px;"></div>
+          <div>___________________________________</div>
+          <div>(Signature with seal)</div>
+          <div style="height: 16px;"></div>
+          <div style="margin-bottom: 6px;">Designation: <input type="text" class="line-input" style="width: 210px;" aria-label="Designation"></div>
+          <div style="margin-bottom: 6px;">Date: <input type="text" class="line-input" style="width: 245px;" aria-label="Date"></div>
+          <div>Place: <input type="text" class="line-input" style="width: 242px;" aria-label="Place"></div>
+        </td>
+        <td class="sig-right">
+          <div>PICTURE OF AUTHORISED SIGNATORY</div>
+          <div class="photo-dropzone" onclick="document.getElementById('photoInput').click()" title="Click to upload photograph">
+            <img id="photoPreview" alt="Authorised Signatory Photo" />
+            <div id="photoPlaceholder" style="font-weight: 400; font-size: 8pt; color: #555555;">
+              [Attach photograph]<br>(Countersign with face visible)
+            </div>
+            <input type="file" id="photoInput" accept="image/*" style="display:none;" onchange="loadPhoto(event)">
+          </div>
+        </td>
+      </tr>
+    </table>
+
+    <!-- IMPORTANT NOTES -->
+    <h2 class="section-heading">Important Notes</h2>
+    <table class="notes-table">
+      <tr>
+        <td>1.  “Government company” means a company in which not less than 51% of the paid-up share capital is held by the Central Government, by a State Government or Governments, or partly by the Central Government and partly by one or more State Governments; this includes a subsidiary of such a Government company.</td>
+      </tr>
+      <tr>
+        <td>2.  NGO / Darpan applicability: Section 8 companies may be identified from the Certificate of Incorporation. Societies and trusts registered under applicable registration or public trust legislation, and non-profit academic institutions (government or non-government), may be eligible for classification as NPO.</td>
+      </tr>
+      <tr>
+        <td>3.  If the authorised signatory is not recorded as such in CKYCRR records and signatory details require updating, write to the CKYC Registry Helpdesk at helpdesk@ckycindia.in or call 022-61102592 / 022-50623300.</td>
+      </tr>
+      <tr>
+        <td>4.  Please ensure all tick boxes, blank fields, signatures and documentary details are completed before submission.</td>
+      </tr>
+    </table>
+
+    <div class="doc-footer">
+      Confidential Merchant Declaration • 1
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function loadPhoto(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const img = document.getElementById('photoPreview');
+      const placeholder = document.getElementById('photoPlaceholder');
+      img.src = e.target.result;
+      img.style.display = 'block';
+      placeholder.style.display = 'none';
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function clearForm() {
+    document.querySelectorAll('input[type="text"]').forEach(el => el.value = '');
+    document.querySelectorAll('input[type="checkbox"]').forEach(el => el.checked = false);
+    const img = document.getElementById('photoPreview');
+    const placeholder = document.getElementById('photoPlaceholder');
+    img.src = '';
+    img.style.display = 'none';
+    placeholder.style.display = 'block';
+  }
+</script>
+
+</body>
+</html>
